@@ -15,11 +15,13 @@ on:
     paths:
       - "scripts/arch-plan.py"
       - "scripts/test-arch-plan.py"
+      - ".github/actions/arch-plan/**"
   pull_request:
     branches: [main]
     paths:
       - "scripts/arch-plan.py"
       - "scripts/test-arch-plan.py"
+      - ".github/actions/arch-plan/**"
   workflow_dispatch:
 
 permissions:

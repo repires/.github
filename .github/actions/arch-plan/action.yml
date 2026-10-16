@@ -1,0 +1,36 @@
+name: "Arch Plan"
+description: >-
+  Validates the `archs` input of the reusable publish-flatpak.yml against the
+  supported enum and emits the normalized plan (matrix, primary, runners) its
+  build and publish jobs consume. The planner lives in scripts/arch-plan.py and
+  travels with this action, so it runs from this repository even when the
+  workflow is called from another repository. Reusable-workflow rule: a `run:`
+  step in a workflow_call job runs against the CALLER's checkout, so the script
+  is reached by full path (github.action_path) instead of a checkout.
+
+inputs:
+  archs:
+    description: JSON array of architectures, e.g. '["x86_64","aarch64"]'
+    required: true
+
+outputs:
+  matrix:
+    description: Validated, de-duplicated JSON array of architectures
+    value: ${{ steps.plan.outputs.matrix }}
+  primary:
+    description: Architecture the unsuffixed `latest` tag tracks
+    value: ${{ steps.plan.outputs.primary }}
+  runners:
+    description: JSON object mapping each architecture to its runner label
+    value: ${{ steps.plan.outputs.runners }}
+
+runs:
+  using: composite
+  steps:
+    - name: Validate and normalize archs
+      id: plan
+      shell: bash
+      env:
+        # Read via env, never interpolated into the script text (AGENTS.md).
+        ARCHS_INPUT: ${{ inputs.archs }}
+      run: python3 "$GITHUB_ACTION_PATH/../../../scripts/arch-plan.py"

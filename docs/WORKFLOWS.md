@@ -321,7 +321,7 @@ that `uses:` this with `secrets: inherit`.
 | `app-id` | string | **yes** | — | Flatpak application ID, e.g. `org.tunaos.finupdate`. |
 | `manifest-path` | string | **yes** | — | Path to the flatpak-builder manifest. |
 | `repo-name` | string | **yes** | — | `owner/repo` on the registry and in the central index, e.g. `tuna-os/finupdate`. |
-| `archs` | string | no | `'["x86_64","aarch64"]'` | JSON array of architectures. Each arch is a separate build job and a separate index update. |
+| `archs` | string | no | `'["x86_64","aarch64"]'` | JSON array of architectures, limited to `x86_64` and `aarch64`. A preflight job fails the run before any build if the list is empty, has a duplicate, or names another value. Each arch is a separate build job and a separate index update. Unsuffixed `:latest` tracks `x86_64` when it is in the list, otherwise the first arch. |
 | `flatpak-builder-image` | string | no | `gnome-50` | `flathub-infra/flatpak-github-actions` image tag (without the `ghcr.io/flathub-infra/flatpak-github-actions:` prefix). |
 | `checkout-submodules` | boolean | no | `false` | Checkout submodules of the source. |
 | `source-repo` | string | no | `''` | `owner/repo` to build from when the source is **not** the calling repo (e.g. republishing Ghostty from `tuna-os/blueshell`). Empty checks out the caller at the calling ref. |
@@ -361,8 +361,9 @@ jobs:
   upstream repo is checked out untouched and built with its own manifest, so
   upstream dependency/runtime bumps need no action here. The app still lands on
   the registry and index under `repo-name`.
-- `publish-flatpak-index` is called once per arch (x86_64 and aarch64 today),
-  each its own independent clone/retry/push cycle against `tuna-os/docs`.
+- `publish` is a matrix with one job per planned arch. Each job downloads its
+  own OCI artifact, pushes its own arch tags, and calls `publish-flatpak-index`
+  with its own clone/retry/push cycle against `tuna-os/docs`.
 - `attach-bundles` only runs on tag pushes (`startsWith(github.ref, 'refs/tags/')`).
 - Not used by `tuna-os/Tavern`: it has a prod/main branch split and a promotion
   flow this workflow does not model (tuna-os/tunaos#1183).

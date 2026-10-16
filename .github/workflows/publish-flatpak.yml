@@ -134,14 +134,14 @@ jobs:
       primary: ${{ steps.plan.outputs.primary }}
       runners: ${{ steps.plan.outputs.runners }}
     steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      # No checkout: in a workflow_call job a checkout is the CALLER's repo,
+      # which has no scripts/arch-plan.py. The composite action carries the
+      # planner from this repo and exits non-zero on any invalid list.
       - name: Validate and normalize archs
         id: plan
-        env:
-          ARCHS_INPUT: ${{ inputs.archs }}
-        # Reads inputs.archs via env, never interpolated into the script text
-        # (see AGENTS.md); exits non-zero on any invalid list.
-        run: python3 scripts/arch-plan.py
+        uses: tuna-os/.github/.github/actions/arch-plan@main
+        with:
+          archs: ${{ inputs.archs }}
 
   build-oci:
     name: Build OCI (${{ matrix.arch }})
