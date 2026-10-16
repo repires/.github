@@ -106,6 +106,8 @@ line to add.
 
 For the reusable workflows these checks operate on — what each input does, its
 defaults, and how a repo calls one — see [`docs/WORKFLOWS.md`](docs/WORKFLOWS.md).
+For the reusable composite actions hosted in `.github/actions/`, see
+[`.github/actions/ACTIONS.md`](.github/actions/ACTIONS.md).
 
 ## Workflow permissions check
 
