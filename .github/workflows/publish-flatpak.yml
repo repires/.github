@@ -159,6 +159,7 @@ jobs:
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:
+          persist-credentials: false
           # Empty `repository`/`ref` is not the same as omitting them for
           # actions/checkout -- an empty string takes the same "not provided"
           # path, so the default stays "this repo at the triggering ref".
