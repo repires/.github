@@ -108,6 +108,7 @@ For the reusable workflows these checks operate on — what each input does, its
 defaults, and how a repo calls one — see [`docs/WORKFLOWS.md`](docs/WORKFLOWS.md).
 For the reusable composite actions hosted in `.github/actions/`, see
 [`.github/actions/ACTIONS.md`](.github/actions/ACTIONS.md).
+For the validation scripts enforcing these policies — purpose, usage, exit codes, and project-starter sync — see [`docs/SCRIPTS.md`](docs/SCRIPTS.md).
 
 ## Workflow permissions check
 

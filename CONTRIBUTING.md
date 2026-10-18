@@ -126,5 +126,6 @@ baseline called for by
 - Ask in the relevant issue or PR.
 - See the [architecture guide](https://github.com/tuna-os/docs/blob/main/docs/architecture.md) in `tuna-os/docs` — architecture overview, per-repository map, and the image/ISO build-pipeline reference.
 - For reusable composite actions available to org workflows, see [`.github/actions/ACTIONS.md`](.github/actions/ACTIONS.md).
+- For validation scripts and policy checks, see [`docs/SCRIPTS.md`](docs/SCRIPTS.md).
 - For security issues, use the private channel described in `SECURITY.md` —
   never paste secrets or exploit details into a public issue.

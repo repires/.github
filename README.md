@@ -10,11 +10,11 @@ Organization-wide defaults, templates, and shared CI/CD tooling for the [`tuna-o
 | `DISCUSSION_TEMPLATE/` | Default GitHub Discussion category forms |
 | `.github/workflows/` | Reusable (`workflow_call`) workflows and repository policy checks — see [`docs/WORKFLOWS.md`](docs/WORKFLOWS.md) |
 | `.github/actions/` | Reusable composite actions — see [`.github/actions/ACTIONS.md`](.github/actions/ACTIONS.md) |
-| `.github/scripts/`, `scripts/` | Policy verifiers, CI contract and fork-safety validators, roadmap index generator, Auto-QA tuner, and unit tests |
+| `.github/scripts/`, `scripts/` | Policy verifiers, CI contract and fork-safety validators, roadmap index generator, Auto-QA tuner, and unit tests — see [`docs/SCRIPTS.md`](docs/SCRIPTS.md) |
 | `workflow-templates/` | Starter CI workflow template (`ci.yml`) for existing repositories |
 | `project-starter/` | Copyable scaffold for new TunaOS repositories — see [`project-starter/README.md`](project-starter/README.md) |
 | `profile/README.md` | Public organization profile rendered on [`github.com/tuna-os`](https://github.com/tuna-os) |
-| `docs/` | Reference documentation for [reusable workflows](docs/WORKFLOWS.md) and [observability guidelines](docs/OBSERVABILITY.md) |
+| `docs/` | Reference documentation for [reusable workflows](docs/WORKFLOWS.md), [validation scripts](docs/SCRIPTS.md), and [observability guidelines](docs/OBSERVABILITY.md) |
 | `default.json`, `renovate.json` | Shared Renovate preset (`local>tuna-os/.github`) and this repository's Renovate configuration |
 | `.claude/skills/` | Shared agent skills (`flatpak-oci-remote`, `hive-contribute`) |
 
@@ -43,6 +43,7 @@ Inputs for reusable workflows and composite actions are a public contract becaus
 - [`AGENTS.md`](AGENTS.md) — Maintainer and agent guide for blast radius, security rules, and policy checks
 - [`CONTRIBUTING.md`](CONTRIBUTING.md) — Contribution workflow, DCO sign-off requirements, and sync rules for shared scripts
 - [`docs/WORKFLOWS.md`](docs/WORKFLOWS.md) — Reference and adoption guide for reusable workflows
+- [`docs/SCRIPTS.md`](docs/SCRIPTS.md) — Reference guide for CI validation scripts and project-starter sync
 - [`.github/actions/ACTIONS.md`](.github/actions/ACTIONS.md) — Index of reusable composite actions
 - [`ROADMAP.md`](ROADMAP.md) & [`ROADMAP-INDEX.md`](ROADMAP-INDEX.md) — Organization enablement roadmap and active repository inventory (including non-`main` default branches)
 - [`CODE_OF_CONDUCT.md`](CODE_OF_CONDUCT.md) & [`SECURITY.md`](SECURITY.md) — Community standards and vulnerability disclosure policy
