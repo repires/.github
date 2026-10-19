@@ -45,13 +45,20 @@ compares eight application repos' `.github/scripts/update-index.py` against
 `.github/actions/update-flatpak-index/update-index.py`, which it treats as
 canonical, and opens or comments on an issue when any has drifted.
 
-Two things to know before touching it:
+### Current status
 
-- **It has failed on every scheduled run since 2026-08-17.** `dualcut` is in
-  its list and has drifted; the other seven no longer carry the file, which
-  the workflow reports as a warning.
-- **Its list is not the set of repos that carry a copy.** On default branches
-  today:
+- **It has failed on every scheduled run since 2026-08-17 (needs triage).** `dualcut` is in
+  its list and has drifted; the other seven no longer carry the file at `.github/scripts/update-index.py`, which
+  the workflow reports as unwired/missing errors. See [tuna-os/.github#292](https://github.com/tuna-os/.github/issues/292).
+
+### Coverage gaps: checked vs unchecked copies
+
+- **Its list is not the set of repos that carry a copy.** The workflow checks only `.github/scripts/update-index.py`
+  in 8 hardcoded repos (`Tavern bootc-installer blueshell docs dualcut finupdate gtk-office-suite mandelbrot`), but misses:
+  - Repos carrying copies at alternative paths (`flatpak-index/scripts/update-index.py`, `Tavern/scripts/update-index.py`).
+  - Repos carrying unchecked copies where path conventions differ.
+
+On default branches today:
 
 | repo | path | blob | checked? |
 |---|---|---|---|
@@ -63,9 +70,11 @@ Two things to know before touching it:
 | `Tavern` | `scripts/update-index.py` | `127aed10` | **no** |
 
 `tuna-os/flatpak-index`'s copy describes *itself* as the canonical one, which
-is a second definition the org's check does not recognise. Migrating a repo
-onto the composite action is the fix that removes the copy rather than
-watching it.
+is a second definition the org's check does not recognise.
+
+### Remediation path
+
+Migrating a repo onto the composite action (`tuna-os/.github/.github/actions/publish-flatpak-index` or `update-flatpak-index`) or the reusable `publish-flatpak.yml` workflow is the intended fix that removes the copy rather than manual byte-syncing or watching it. Repos should delete their local script copies once migrated.
 
 ## Default branches are not all `main`
 

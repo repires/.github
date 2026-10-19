@@ -13,6 +13,26 @@ name: Flatpak Tooling Drift Check
 #
 # "Missing" is never treated as "migrated" on its own: a repo that moved or
 # dropped the file without adopting the shared tooling fails the check.
+#
+# Status:
+# - Scheduled runs have failed on every run since 2026-08-17 (needs triage).
+#   dualcut carries a drifted .github/scripts/update-index.py copy, while other
+#   configured repos that moved or unwired fail the check.
+#   See tuna-os/.github#292.
+#
+# Coverage gaps:
+# - Current coverage is incomplete: it only checks .github/scripts/update-index.py
+#   in a hardcoded list of repos.
+# - Repos carrying copies not checked:
+#   - flatpak-index: scripts/update-index.py (claims itself canonical)
+#   - docs: .github/scripts/update-index.py
+#   - Tavern: .github/scripts/update-index.py and scripts/update-index.py
+#
+# Remediation:
+# - The intended remediation is per-repo migration to the shared composite action
+#   (publish-flatpak-index / update-flatpak-index) or reusable publish-flatpak.yml
+#   workflow, deleting the local copy rather than maintaining or manually syncing
+#   scattered script copies.
 
 on:
   schedule:
